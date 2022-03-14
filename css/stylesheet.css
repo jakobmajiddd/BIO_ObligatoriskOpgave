@@ -1,0 +1,61 @@
+:root{
+  --submittxt: white;
+  --btnBack: #2B3A67;
+}
+
+body{
+  margin: 0;
+  font-family: Calibri;
+}
+
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+li a {
+  float: right;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover:not(.active) {
+  background-color: #111;
+}
+
+.active {
+  background-color: #04AA6D;
+}
+
+
+.wrapper{
+  width: 40%;
+  margin: auto;
+  padding: 10px;
+  text-align: center;
+}
+
+.login{
+  margin-top: 10px;
+  color: var(--submittxt);
+  font-size: 20px;
+  width: 20%;
+  height: 30%;
+  background-color: var(--btnBack);
+  border: none;
+}
+
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+}
+
+
+

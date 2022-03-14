@@ -16,16 +16,26 @@
 </div>
 <div class="wrapper">
 <h1 class="not-center">Login</h1>
-<form class="form-style" id="login" name="login">
-    <label>Username</label><br>
+
+  <form class="form-style" action="http://localhost:8080/api/users/verify" method="post" id="loginForm">
+    <label for="username">Username</label><br>
     <input type="text" id="username" name="username" placeholder="Username"><br>
-    <label>Password</label><br>
+    <label for="password">Password</label><br>
     <input type="password" id="password" name="password" placeholder="Password" ><br>
 
-  <input type="button" onclick="check(this.form)" value="Login" id="pbLogin" class="login"></input>
-  <input type="reset" value="Cancel"/>
+    <button type="submit" id="submit" class="login">Login</button>
 
-</form>
+<!-- <form class="form-style" id="login" name="login">
+     <label>Username</label><br>
+     <input type="text" id="username" name="username" placeholder="Username"><br>
+     <label>Password</label><br>
+     <input type="password" id="password" name="password" placeholder="Password" ><br>
+
+   <input type="button" onclick="check(this.form)" value="Login" id="pbLogin" class="login"></input>
+   <input type="reset" value="Cancel"/>
+-->
+
+  </form>
 </div>
 
 </body>

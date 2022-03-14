@@ -1,26 +1,9 @@
-const out = function (str) {
-  console.log(str);
-}
-
-const username = document.getElementById("username");
-const password = document.getElementById("password");
-
-const pbLogin = document.getElementById("pbLogin");
-
-pbLogin.addEventListener("click", validateUser());
-
-let isAdmin = false;
-
-
-function validateUser(){
-  console.log('Validating user...');
-  if (username.contains("Jonathan")) {
-    alert(`Hi ${username}`);
-    return isAdmin = true;
+//function to check userid & password
+function check(form) {
+    //checkes if username and password are matching
+    if(form.username.value == "Jonathan" && form.password.value == "1234") {
+    window.open('index.html')//opens the target page while Id & password matches
   } else {
-    alert("Unknown user");
-    return isAdmin = false;
+    alert("Error Password or Username");
+    }
   }
-
-}
-

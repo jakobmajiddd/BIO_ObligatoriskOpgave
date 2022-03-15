@@ -45,7 +45,20 @@ async function postFormDataAsJson(url, formData) {
     body: formDataJsonString
   };
 
-  return await fetch(url, fetchOptions);
+  const response = await fetch(url, fetchOptions);
+
+  if (!response) {
+    const errorMessage = await response.text();
+    throw new Error(errorMessage);
+  }
+
+  if (response.status != "404") {
+    sessionStorage.setItem("admin", true);
+    window.location.href = "adminPage.html";
+  } else {
+    // vis tekst der fortæller at login er fejlet
+  }
 }
+
 
 

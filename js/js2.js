@@ -11,6 +11,8 @@ function createShow() {
   setTitle("Create show");
   setFormDestination("http://localhost:8080/api/shows/create", "post")
   createInput("Movie name", "Batman...", "movieName", "text");
+  createInput("Movie genre", "Action...", "genre", "text");
+  createInput("Age limit", "12...", "ageLimit", "number")
   createInput("Image Url", "Url...", "imageUrl", "text");
   createInput("Start date", "", "startDate", "date");
   createInput("Finish date", "","finishDate", "date");

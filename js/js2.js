@@ -4,16 +4,16 @@ document.querySelector(".close").addEventListener("click", closeModal);
 
 let modalTitle= document.querySelector(".modal-title");
 let modalInputField = document.querySelector(".modal-input-field");
-let inputCount = 0;
 
 let form = document.querySelector(".modal-input-field");
-
-
 
 function createShow() {
   setTitle("Create show");
   setFormDestination("http://localhost:8080/api/shows/create", "post")
-  createInput("Movie name", "Batman...", "movieName");
+  createInput("Movie name", "Batman...", "movieName", "text");
+  createInput("Image Url", "Url...", "imageUrl", "text");
+  createInput("Start date", "", "startDate", "date");
+  createInput("Finish date", "","finishDate", "date");
 
   openModal();
 }
@@ -27,9 +27,7 @@ function setFormDestination(action, method) {
   form.setAttribute("method", method);
 }
 
-function createInput(inputName, placeHolder, idName) {
-  inputCount++;
-
+function createInput(inputName, placeHolder, idName, type) {
   const title = document.createElement("p");
   const text = document.createTextNode(inputName);
   title.appendChild(text);
@@ -37,13 +35,15 @@ function createInput(inputName, placeHolder, idName) {
   const input = document.createElement("input");
   input.id = idName;
   input.name = idName;
-  input.type = "text";
+  input.type = type;
   input.placeholder = placeHolder;
   input.classList.add("js-input");
 
   form.appendChild(title);
   form.appendChild(input);
 }
+
+
 
 function openModal() {
   overlay.style.display = "block";
@@ -56,7 +56,7 @@ function closeModal() {
 
 function clearModal() {
   modalTitle.textContent = "";
-  inputCount = 0;
+
   form.reset();
 
   while (modalInputField.hasChildNodes()) {

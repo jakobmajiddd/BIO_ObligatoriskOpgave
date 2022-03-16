@@ -7,7 +7,11 @@ let modalInputField = document.querySelector(".modal-input-field");
 
 let form = document.querySelector(".modal-input-field");
 
+let method;
+const submitBtn = document.getElementById("submit");
+
 function createShow() {
+  setMethod("post");
   setTitle("Create show");
   setFormDestination("http://localhost:8080/api/shows/create", "post")
   createInput("Movie name", "Batman...", "movieName", "text");
@@ -18,11 +22,39 @@ function createShow() {
   createInput("Finish date", "","finishDate", "date");
   createInput("Duration", "...", "duration", "text");
 
+  submitBtn.addEventListener("click", createFormEventListener);
+
+
   openModal();
 }
 
+function updateShow(show) {
+  setMethod("put");
+  setTitle("Update show");
+  setFormDestination("http://localhost:8080/api/shows/update/" + show.showId, "put")
+  createInput("Movie name", "Batman...", "movieName", "text", show.movieName);
+  createInput("Movie genre", "Action...", "genre", "text", show.genre);
+  createInput("Age limit", "12...", "ageLimit", "number", show.ageLimit)
+  createInput("Image Url", "Url...", "imageUrl", "text", show.imageUrl);
+  createInput("Start date", "", "startDate", "date",  new Date("2015-03-25"));
+  createInput("Finish date", "","finishDate", "date", new Date("2015-03-25"));
+  createInput("Duration", "...", "duration", "text", show.duration);
+
+  submitBtn.addEventListener("click", createFormEventListener);
+
+
+
+  openModal();
+}
+
+//////////////// Modal build ///////////////
+
 function setTitle(title) {
   modalTitle.textContent = title;
+}
+
+function setMethod(method) {
+  this.method = method;
 }
 
 function setFormDestination(action, method) {
@@ -30,7 +62,7 @@ function setFormDestination(action, method) {
   form.setAttribute("method", method);
 }
 
-function createInput(inputName, placeHolder, idName, type) {
+function createInput(inputName, placeHolder, idName, type, value) {
   const title = document.createElement("p");
   const text = document.createTextNode(inputName);
   title.appendChild(text);
@@ -40,7 +72,11 @@ function createInput(inputName, placeHolder, idName, type) {
   input.name = idName;
   input.type = type;
   input.placeholder = placeHolder;
+  if (value !== undefined) {
+    input.value = value;
+  }
   input.classList.add("js-input");
+
 
   form.appendChild(title);
   form.appendChild(input);
@@ -59,6 +95,7 @@ function closeModal() {
 
 function clearModal() {
   modalTitle.textContent = "";
+
 
   form.reset();
 
@@ -92,6 +129,8 @@ async function loadShows() {
     showContainerElementContentText.classList.add("show-container-element-content-text");
     showContainerElementDivider.classList.add("show-container-element-divider");
 
+    showContainerElement.addEventListener("click", () => updateShow(show));
+
     showContainerElementImage.src = show.imageUrl;
     showContainerElementContentTitle.textContent = show.movieName;
     showContainerElementContentText.textContent = show.genre;
@@ -117,9 +156,8 @@ function fetchShows(url) {
 
 /////////////////////////////////////////////////////////////////
 
-document.addEventListener("DOMContentLoaded", createFormEventListener);
-
 function createFormEventListener() {
+
   form.addEventListener("submit", handleFormSubmit);
 }
 
@@ -133,16 +171,17 @@ async function handleFormSubmit(event) {
     const formData = new FormData(formEvent);
     await postFormDataAsJson(url, formData);
   } catch (err) {
-    alert(err.message);
+
   }
 }
+
 
 async function postFormDataAsJson(url, formData) {
   const plainFormData = Object.fromEntries(formData.entries());
   const formDataJsonString = JSON.stringify(plainFormData);
 
   const fetchOptions = {
-    method: "POST",
+    method: this.method,
     headers: {
       "Content-Type": "application/json",
     },

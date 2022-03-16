@@ -77,10 +77,34 @@ async function loadShows() {
   const shows = await fetchShows("http://localhost:8080/api/shows");
 
   for (let i = 0; i < shows.length; i++) {
-    const showContainerElement = document.createElement("button");
-    showContainerElement.textContent = shows[i].movieName;
+    let show = shows[i];
+    const showContainerElement = document.createElement("a");
+    const showContainerElementImage = document.createElement("img");
+    const showContainerElementContent = document.createElement("div");
+    const showContainerElementContentTitle = document.createElement("div");
+    const showContainerElementContentText = document.createElement("div");
+    const showContainerElementDivider = document.createElement("div");
+
     showContainerElement.classList.add("show-container-element");
+    showContainerElementImage.classList.add("show-container-element-image");
+    showContainerElementContent.classList.add("show-container-element-content");
+    showContainerElementContentTitle.classList.add("show-container-element-content-title");
+    showContainerElementContentText.classList.add("show-container-element-content-text");
+    showContainerElementDivider.classList.add("show-container-element-divider");
+
+    showContainerElementImage.src = show.imageUrl;
+    showContainerElementContentTitle.textContent = show.movieName;
+    showContainerElementContentText.textContent = show.genre;
+
+    showContainerElement.appendChild(showContainerElementImage);
+
+    showContainerElementContent.appendChild(showContainerElementContentTitle);
+    showContainerElementContent.appendChild(showContainerElementContentText);
+
+    showContainerElement.appendChild(showContainerElementContent)
+
     showContainer.appendChild(showContainerElement);
+    showContainer.appendChild(showContainerElementDivider);
   }
 
 }

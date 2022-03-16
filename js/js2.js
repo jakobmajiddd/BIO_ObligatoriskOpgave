@@ -16,6 +16,7 @@ function createShow() {
   createInput("Image Url", "Url...", "imageUrl", "text");
   createInput("Start date", "", "startDate", "date");
   createInput("Finish date", "","finishDate", "date");
+  createInput("Duration", "...", "duration", "text");
 
   openModal();
 }

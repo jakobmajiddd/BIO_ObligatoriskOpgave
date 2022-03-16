@@ -69,6 +69,28 @@ function clearModal() {
 
 //////////////////////////////////////////////////////////////////
 
+const showContainer = document.getElementById("show-container");
+
+async function loadShows() {
+  const shows = await fetchShows();
+
+  for (let i = 0; i < shows.length; i++) {
+    const showContainerElement = document.createElement("button");
+    showContainerElement.textContent = shows[i].movieName;
+    showContainerElement.classList.add("show-container-element");
+    showContainer.appendChild(showContainerElement);
+  }
+
+}
+
+
+function fetchShows(url) {
+  return fetch(url).then(response => response.json());
+
+}
+
+/////////////////////////////////////////////////////////////////
+
 document.addEventListener("DOMContentLoaded", createFormEventListener);
 
 function createFormEventListener() {

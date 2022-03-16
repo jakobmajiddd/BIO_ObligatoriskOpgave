@@ -3,11 +3,25 @@
   --btnBack: #2B3A67;
 }
 
+.logo{
+  width: 80px;
+  height: 80px;
+}
 body{
   margin: 0;
   font-family: Calibri;
 }
 
+.card{
+  height: 200px;
+  width: 200px;
+  background-color: green;
+}
+
+.card-atag{
+  cursor: pointer;
+  text-decoration: #2B3A67;
+}
 
 ul {
   list-style-type: none;

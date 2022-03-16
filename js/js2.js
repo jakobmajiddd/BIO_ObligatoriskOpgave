@@ -71,8 +71,10 @@ function clearModal() {
 
 const showContainer = document.getElementById("show-container");
 
+loadShows();
+
 async function loadShows() {
-  const shows = await fetchShows();
+  const shows = await fetchShows("http://localhost:8080/api/shows");
 
   for (let i = 0; i < shows.length; i++) {
     const showContainerElement = document.createElement("button");

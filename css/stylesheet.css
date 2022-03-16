@@ -76,7 +76,7 @@ input[type=text], input[type=password] {
   margin: auto auto 10px;
 }
 
-#show-container {
+.show-container-element {
   height: 50px;
   width: 200px;
   border: 1px solid black;

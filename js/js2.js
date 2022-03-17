@@ -22,6 +22,8 @@ function createShow() {
   createInput("Finish date", "","finishDate", "date");
   createInput("Duration", "...", "duration", "text");
 
+  createDropdownInput("http://localhost:8080/api/rooms", "Room", "room");
+
   submitBtn.addEventListener("click", async () => {
     await createFormEventListener();
     location.reload();
@@ -44,7 +46,7 @@ function updateShow(show) {
   createInput("Start date", "", "startDate", "date",  show.startDate);
   createInput("Finish date", "","finishDate", "date", show.finishDate);
   createInput("Duration", "...", "duration", "text", show.duration);
-
+  createDropdownInput("http://localhost:8080/api/rooms", "Room", "roomId");
 
   const modalFooter = document.querySelector(".modal-footer")
 
@@ -114,6 +116,31 @@ function createInput(inputName, placeHolder, idName, type, value) {
   form.appendChild(input);
 }
 
+async function createDropdownInput(url, inputName, idName) {
+  const title = document.createElement("p");
+  const text = document.createTextNode(inputName);
+  title.appendChild(text);
+
+  const rooms = await fetchEntities(url);
+  const select = document.createElement("select");
+  select.id = idName;
+  select.name = idName;
+
+  for (let i = 0; i < rooms.length; i++) {
+    let room = rooms[i];
+
+    const option = document.createElement("option");
+    option.value = room.roomId;
+    option.textContent = room.name;
+    select.appendChild(option);
+
+  }
+
+  form.appendChild(title);
+  form.appendChild(select);
+
+}
+
 
 
 function openModal() {
@@ -144,7 +171,7 @@ const showContainer = document.getElementById("show-container");
 loadShows();
 
 async function loadShows() {
-  const shows = await fetchShows("http://localhost:8080/api/shows");
+  const shows = await fetchEntities("http://localhost:8080/api/shows");
 
   for (let i = 0; i < shows.length; i++) {
     let show = shows[i];
@@ -180,7 +207,7 @@ async function loadShows() {
 }
 
 
-function fetchShows(url) {
+function fetchEntities(url) {
   return fetch(url).then(response => response.json());
 
 }

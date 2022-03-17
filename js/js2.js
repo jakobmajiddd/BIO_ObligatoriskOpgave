@@ -22,7 +22,10 @@ function createShow() {
   createInput("Finish date", "","finishDate", "date");
   createInput("Duration", "...", "duration", "text");
 
-  submitBtn.addEventListener("click", createFormEventListener);
+  submitBtn.addEventListener("click", async () => {
+    await createFormEventListener();
+    location.reload();
+  });
 
 
   openModal();
@@ -30,19 +33,20 @@ function createShow() {
 
 function updateShow(show) {
   setMethod("put");
-  setTitle("Update show");
-  setFormDestination("http://localhost:8080/api/shows/update/" + show.showId, "put")
+  setTitle("Edit show");
+  setFormDestination("http://localhost:8080/api/shows/edit/" + show.showId, "put")
   createInput("Movie name", "Batman...", "movieName", "text", show.movieName);
   createInput("Movie genre", "Action...", "genre", "text", show.genre);
   createInput("Age limit", "12...", "ageLimit", "number", show.ageLimit)
   createInput("Image Url", "Url...", "imageUrl", "text", show.imageUrl);
-  createInput("Start date", "", "startDate", "date",  new Date("2015-03-25"));
-  createInput("Finish date", "","finishDate", "date", new Date("2015-03-25"));
+  createInput("Start date", "", "startDate", "date",  show.startDate);
+  createInput("Finish date", "","finishDate", "date", show.finishDate);
   createInput("Duration", "...", "duration", "text", show.duration);
 
-  submitBtn.addEventListener("click", createFormEventListener);
-
-
+  submitBtn.addEventListener("click", async () => {
+    await createFormEventListener();
+    location.reload();
+  });
 
   openModal();
 }

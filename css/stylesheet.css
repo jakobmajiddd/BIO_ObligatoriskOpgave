@@ -1,21 +1,31 @@
-:root{
-  --submittxt: white;
-  --btnBack: #2B3A67;
-}
 
 .logo{
   width: 80px;
   height: 80px;
 }
+
+
 body{
   margin: 0;
   font-family: Calibri;
+  background-color: #00171F;
+  color: white;
+}
+html{
+  background-color: #00171F;
 }
 
-.card{
+.movies{
+
+}
+
+.Card{
   height: 200px;
-  width: 200px;
-  background-color: green;
+  width: 100%;
+  background-color: #00A7E1;
+  border: solid 20px #00171F;
+  border-radius: 50px;
+  padding: 2%;
 }
 
 .card-atag{
@@ -28,26 +38,25 @@ ul {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: #333;
+  background-color: #003459;;
 }
 
 li a {
+  font-size: 22px;
   float: right;
-
   color: white;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
+  display: block;
+  border: none;
+  cursor: pointer;
 }
 
 li a:hover:not(.active) {
-  background-color: #111;
+  color: #007EA7;
+  text-decoration: none;
 }
-
-.active {
-  background-color: #04AA6D;
-}
-
 
 .wrapper{
   width: 40%;
@@ -58,13 +67,19 @@ li a:hover:not(.active) {
 
 .login{
   margin-top: 10px;
-  color: var(--submittxt);
-  font-size: 20px;
+  color: white;
+  font-size: 40px;
   width: 20%;
   height: 30%;
-  background-color: var(--btnBack);
+  background-color: #00A7E1;
   border: none;
 }
+
+.login:hover{
+  background-color: #007EA7;
+  cursor: pointer;
+}
+
 
 input[type=text], input[type=password] {
   width: 100%;
@@ -79,7 +94,6 @@ input[type=text], input[type=password] {
   left: 0;
   right: 0;
   z-index: 1;
-
   background-color: rgba(0,0,0,0.5);
 
 }
@@ -132,3 +146,9 @@ input[type=text], input[type=password] {
 .show-container-element-divider {
   height: 20px;
 }
+
+.container{
+  margin: auto;
+  width: 75%;
+}
+

@@ -5,9 +5,11 @@ body{
   background-color: #00171F;
   color: white;
 }
+/*
 html{
   background-color: #00171F;
 }
+ */
 
 .logo{
   float: left;
@@ -106,40 +108,43 @@ input[type=text], input[type=password] {
 .show-container-element {
   margin: auto;
   display: block;
-  height: 200px;
+  height: 30px;
   width: 800px;
-  outline: 2px solid black;
+  border: 1px solid black;
   cursor: pointer;
-
 }
 
-.show-container-element-image {
-  height: 200px;
-  width: 200px;
+.show-container-element:hover {
+  background-color: whitesmoke;
+}
+
+.show-container-element-id {
+  border-right: 1px solid black;
+  height: 30px;
+  width: 30px;
+  text-align: center;
+  font-size: 20px;
   float: left;
-  outline: 2px solid black;
 }
 
-.show-container-element-content {
-  height: 190px;
-  width: 580px;
-  float: right;
-  margin-right: 10px;
-}
-
-.show-container-element-content-title {
-  font-size: 30px;
-  color: black;
-  height: 40px;
-  width: 300px;
+.show-container-element-title {
+  border-right: 1px solid black;
+  overflow: hidden;
+  float: left;
+  font-size: 20px;
+  height: 30px;
+  width: 270px;
   text-align: center;
   margin: auto;
 }
 
-.show-container-element-content-text {
-  height: 100px;
-  width: 300px;
+.show-container-element-date {
+  text-align: center;
+  font-size: 20px;
+  height: 30px;
+  width: 240px;
   margin: auto;
+  float: right;
 }
 
 .show-container-element-divider {

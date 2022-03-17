@@ -31,6 +31,8 @@ function createShow() {
   openModal();
 }
 
+const deleteButton = document.createElement("button");
+
 function updateShow(show) {
   setMethod("put");
   setTitle("Edit show");
@@ -43,12 +45,38 @@ function updateShow(show) {
   createInput("Finish date", "","finishDate", "date", show.finishDate);
   createInput("Duration", "...", "duration", "text", show.duration);
 
+
+  const modalFooter = document.querySelector(".modal-footer")
+
+  deleteButton.id = "delete";
+  deleteButton.className = "btn btn-danger remove";
+  deleteButton.textContent = "Delete";
+
+  modalFooter.appendChild(deleteButton);
+
+  deleteButton.addEventListener("click",async () => {
+
+    await deleteShow(show.showId)
+    location.reload();
+  });
+
   submitBtn.addEventListener("click", async () => {
     await createFormEventListener();
     location.reload();
   });
 
   openModal();
+}
+
+function deleteShow(showId) {
+  const fetchOptions = {
+    method: "delete",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  const url = "http://localhost:8080/api/shows/delete/" + showId;
+  return fetch(url, fetchOptions);
 }
 
 //////////////// Modal build ///////////////
@@ -99,6 +127,7 @@ function closeModal() {
 
 function clearModal() {
   modalTitle.textContent = "";
+  deleteButton.remove();
 
 
   form.reset();
@@ -120,34 +149,32 @@ async function loadShows() {
   for (let i = 0; i < shows.length; i++) {
     let show = shows[i];
     const showContainerElement = document.createElement("a");
-    const showContainerElementImage = document.createElement("img");
-    const showContainerElementContent = document.createElement("div");
-    const showContainerElementContentTitle = document.createElement("div");
-    const showContainerElementContentText = document.createElement("div");
-    const showContainerElementDivider = document.createElement("div");
+
+    const showContainerElementId = document.createElement("div");
+    const showContainerElementTitle = document.createElement("div");
+    const showContainerElementDateS = document.createElement("div");
+    const showContainerElementDateF = document.createElement("div");
+
+    showContainerElementId.textContent = show.showId;
+    showContainerElementTitle.textContent  = show.movieName;
+    showContainerElementDateS.textContent = show.startDate;
+    showContainerElementDateF.textContent = show.finishDate;
 
     showContainerElement.classList.add("show-container-element");
-    showContainerElementImage.classList.add("show-container-element-image");
-    showContainerElementContent.classList.add("show-container-element-content");
-    showContainerElementContentTitle.classList.add("show-container-element-content-title");
-    showContainerElementContentText.classList.add("show-container-element-content-text");
-    showContainerElementDivider.classList.add("show-container-element-divider");
+    showContainerElementId.classList.add("show-container-element-id");
+    showContainerElementTitle.classList.add("show-container-element-title");
+    showContainerElementDateS.classList.add("show-container-element-date");
+    showContainerElementDateF.classList.add("show-container-element-date");
 
     showContainerElement.addEventListener("click", () => updateShow(show));
 
-    showContainerElementImage.src = show.imageUrl;
-    showContainerElementContentTitle.textContent = show.movieName;
-    showContainerElementContentText.textContent = show.genre;
-
-    showContainerElement.appendChild(showContainerElementImage);
-
-    showContainerElementContent.appendChild(showContainerElementContentTitle);
-    showContainerElementContent.appendChild(showContainerElementContentText);
-
-    showContainerElement.appendChild(showContainerElementContent)
+    showContainerElement.appendChild(showContainerElementId);
+    showContainerElement.appendChild(showContainerElementTitle);
+    showContainerElement.appendChild(showContainerElementDateS);
+    showContainerElement.appendChild(showContainerElementDateF);
 
     showContainer.appendChild(showContainerElement);
-    showContainer.appendChild(showContainerElementDivider);
+
   }
 
 }

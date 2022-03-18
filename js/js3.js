@@ -3,24 +3,18 @@ const divContainer = document.getElementById("movies");
 async function loadShows(){
   const shows = await fetchShows("http://localhost:8080/api/shows");
   for (let i = 0; i < shows.length; i++){
-    const showContainer = document.createElement("div");
+    const show = shows[i];
+    const showContainer = document.createElement("img");
     showContainer.classList.add("Card");
+    showContainer.src = show.imageUrl;
 
-    const title = document.createElement("a");
-    title.textContent = shows[i].movieName;
-    title.classList.add("card-atag");
-    title.addEventListener('click',() => {
+    showContainer.addEventListener('click',() => {
       window.location.href = "show.html"
     })
     //title.href = "http://localhost:8080/api/shows/show/" + shows[i].showId;
 
-    const showP = document.createElement("p");
-    const text = document.createTextNode(shows[i].genre);
 
-    showP.appendChild(text);
     divContainer.appendChild(showContainer);
-    showContainer.appendChild(title);
-    showContainer.appendChild(showP);
   }
 }
 

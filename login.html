@@ -17,12 +17,12 @@
 </div>
 <div class="wrapper">
 
-  <form class="form-style" style="border: solid white 2px; border-radius: 15px; margin-top: 10%"  action="http://localhost:8080/api/users/verify" method="post" id="loginForm">
+  <form class="form-style; loginform"   action="http://localhost:8080/api/users/verify" method="post" id="loginForm">
     <br>
-    <label for="username" style="margin-top: 2%">Username</label><br>
-    <input type="text" id="username" name="username" placeholder="Username" value="Admin" style="width: 400px"><br>
-    <label for="password">Password</label><br>
-    <input type="password" id="password" name="password" placeholder="Password" value="admin" style="width: 400px"><br>
+    <label for="username" class="loginlable">Username</label><br>
+    <input class="input-login" type="text" id="username" name="username" placeholder="Username" value="Admin" style="width: 400px"><br>
+    <label for="password" class="loginlable">Password</label><br>
+    <input class="input-login" type="password" id="password" name="password" placeholder="Password" value="admin" style="width: 400px"><br>
 
     <button type="submit" id="submit" class="login">Login</button>
 

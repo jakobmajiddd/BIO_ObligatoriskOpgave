@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <title>Title</title>
   <link rel="stylesheet" href="css/stylesheet.css">
+  <script src="js/bookingMovie.js" defer></script>
+  <link rel="stylesheet" href="css/bookingMovie.css">
 </head>
 <body>
 <div class="header">
@@ -12,16 +14,109 @@
     <li class="logo"><a href="index.html"><img src="img/logo.jpg" width="40" height="40"/></a></li>
   </ul>
 </div>
+<div class="container">
+  <div class="booking">
+<div class="movie-container">
+  <label>Vælg en film:</label>
+  <select id="movie">
+    <option value="80">Avengers: Endgame (80kr)</option>
+    <option value="100">Joker (100kr)</option>
+    <option value="120">Toy Story (120kr)</option>
+    <option value="85">Lion King (85kr)</option>
+  </select>
+</div>
+<ul class="showcase">
+  <li>
+    <div class="seat"></div>
+    <small>Ledig</small>
+  </li>
 
-<form action="http://localhost:8080/api/reserved-seats/reserve" id="myForm">
-  <p>Name</p>
-  <input name="name" id="name" type="text" placeholder="...">
-  <p>Email</p>
-  <input name="email" id="email" type="email" placeholder="...">
-  <br>
-  <br>
-  <button type="submit">Book</button>
-</form>
+  <li>
+    <div class="seat selected"></div>
+    <small>Valgt</small>
+  </li>
+
+  <li>
+    <div class="seat occupied"></div>
+    <small>Optaget</small>
+  </li>
+</ul>
+
+
+
+<div class="container-seat">
+  <div class="screen"></div>
+
+  <div class="row">
+    <div class="seat"></div>
+    <div class="seat"></div>
+    <div class="seat"></div>
+    <div class="seat"></div>
+    <div class="seat occupied"></div>
+    <div class="seat"></div>
+    <div class="seat"></div>
+    <div class="seat"></div>
+  </div>
+
+  <div class="row">
+    <div class="seat"></div>
+    <div class="seat"></div>
+    <div class="seat"></div>
+    <div class="seat occupied"></div>
+    <div class="seat"></div>
+    <div class="seat"></div>
+    <div class="seat"></div>
+    <div class="seat"></div>
+  </div>
+
+  <div class="row">
+    <div class="seat"></div>
+    <div class="seat"></div>
+    <div class="seat"></div>
+    <div class="seat occupied"></div>
+    <div class="seat occupied"></div>
+    <div class="seat"></div>
+    <div class="seat"></div>
+    <div class="seat"></div>
+  </div>
+
+  <div class="row">
+    <div class="seat"></div>
+    <div class="seat"></div>
+    <div class="seat"></div>
+    <div class="seat"></div>
+    <div class="seat"></div>
+    <div class="seat"></div>
+    <div class="seat occupied"></div>
+    <div class="seat occupied"></div>
+  </div>
+
+  <div class="row">
+    <div class="seat"></div>
+    <div class="seat"></div>
+    <div class="seat"></div>
+    <div class="seat"></div>
+    <div class="seat"></div>
+    <div class="seat"></div>
+    <div class="seat"></div>
+    <div class="seat"></div>
+  </div>
+</div>
+
+<p class="text">
+  Du har valgt <span id="count">0</span> sæder til en samlet pris af <span id="total">0</span> kr.
+</p>
+  </div>
+  <form class="form-booking" action="http://localhost:8080/api/reserved-seats/reserve" id="myForm">
+    <p>Name</p>
+    <input class="input-booking" name="name" id="name" type="text" placeholder="...">
+    <p>Email</p>
+    <input class="input-booking" name="email" id="email" type="email" placeholder="...">
+    <br>
+    <br>
+    <button type="submit">Book</button>
+  </form>
+</div>
 
 </body>
 </html>

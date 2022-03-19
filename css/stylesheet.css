@@ -93,11 +93,27 @@ li a:hover:not(.active) {
 
 }
 
-
-input[type=text], input[type=password] {
+.input-login{
   width: 100%;
   padding: 12px 20px;
 }
+
+.form-booking{
+  width: 600px;
+  border: 1px solid black;
+  display: flex;
+  justify-content: space-between;
+}
+
+.input-booking{
+  width: 31%;
+}
+
+.booking{
+  margin: auto;
+  width: 40%;
+}
+
 
 #overlay {
   display: none;
@@ -168,5 +184,15 @@ input[type=text], input[type=password] {
 .container{
   margin: auto;
   width: 75%;
+}
+
+.loginform{
+  border: solid white 2px;
+  border-radius: 15px;
+  margin-top: 10%
+}
+
+.loginlable{
+  margin-top: 2%
 }
 

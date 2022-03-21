@@ -9,6 +9,7 @@ async function loadShows(){
     showContainer.src = show.imageUrl;
 
     showContainer.addEventListener('click',() => {
+      localStorage.setItem("show", JSON.stringify(show));
       window.location.href = "show.html"
     })
     //title.href = "http://localhost:8080/api/shows/show/" + shows[i].showId;

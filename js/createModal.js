@@ -8,23 +8,24 @@ let modalInputField = document.querySelector(".modal-input-field");
 let form = document.querySelector(".modal-input-field");
 
 let method;
+let test;
 const submitBtn = document.getElementById("submit");
+const deleteButton = document.createElement("button");
+
+////////////// Create modals /////////////////////
 
 function createMovie() {
   setMethod("post");
   setTitle("Create Movie");
   setFormDestination("http://localhost:8080/api/movies", "post");
 
-  createInput("Movie name", "Batman...", "movieName", "text");
+  createInput("Movie name", "Batman...", "name", "text");
   createInput("Movie genre", "Action...", "genre", "text");
   createInput("Age limit", "12...", "ageLimit", "number")
   createInput("Image Url", "Url...", "imageUrl", "text");
-  createInput("Duration", "...", "duration", "text");
+  createInput("Duration", "...", "duration", "number");
 
-  submitBtn.addEventListener("click", async () => {
-    await createFormEventListener();
-    location.reload();
-  });
+  setupSubmitButton();
 
   openModal();
 }
@@ -32,27 +33,15 @@ function createMovie() {
 function createShow() {
   setMethod("post");
   setTitle("Create show");
-  setFormDestination("http://localhost:8080/api/shows/create", "post")
-  createInput("Movie name", "Batman...", "movieName", "text");
-  createInput("Movie genre", "Action...", "genre", "text");
-  createInput("Age limit", "12...", "ageLimit", "number")
-  createInput("Image Url", "Url...", "imageUrl", "text");
-  createInput("Start date", "", "startDate", "date");
-  createInput("Finish date", "", "finishDate", "date");
-  createInput("Duration", "...", "duration", "text");
-
+  setFormDestination("http://localhost:8080/api/shows", "post")
+  createDropdownInput("http://localhost:8080/api/movies", "Movie", "movie");
   createDropdownInput("http://localhost:8080/api/rooms", "Room", "room");
+  createInput("Run time", "", "startDate", "time");
 
-  submitBtn.addEventListener("click", async () => {
-    await createFormEventListener();
-    location.reload();
-  });
-
+  setupSubmitButton();
 
   openModal();
 }
-
-const deleteButton = document.createElement("button");
 
 function updateShow(show) {
   setMethod("put");
@@ -62,7 +51,13 @@ function updateShow(show) {
   createInput("Movie genre", "Action...", "genre", "text", show.genre);
   createInput("Age limit", "12...", "ageLimit", "number", show.ageLimit)
 
+  createDeleteButton();
+  setupSubmitButton();
 
+  openModal();
+}
+
+function createDeleteButton() {
   const modalFooter = document.querySelector(".modal-footer")
 
   deleteButton.id = "delete";
@@ -76,13 +71,13 @@ function updateShow(show) {
     await deleteShow(show.showId)
     location.reload();
   });
+}
 
+function setupSubmitButton() {
   submitBtn.addEventListener("click", async () => {
     await createFormEventListener();
     location.reload();
   });
-
-  openModal();
 }
 
 function deleteShow(showId) {
@@ -96,7 +91,7 @@ function deleteShow(showId) {
   return fetch(url, fetchOptions);
 }
 
-//////////////// Modal build ///////////////
+//////////////// Modal build functions ///////////////
 
 function setTitle(title) {
   modalTitle.textContent = title;
@@ -136,20 +131,28 @@ async function createDropdownInput(url, inputName, idName) {
   const text = document.createTextNode(inputName);
   title.appendChild(text);
 
-  const rooms = await fetchEntities(url);
+  const entities = await fetchEntities(url);
   const select = document.createElement("select");
   select.id = idName;
   select.name = idName;
 
-  for (let i = 0; i < rooms.length; i++) {
-    let room = rooms[i];
+  test = entities[0];
 
+  for (let i = 0; i < entities.length; i++) {
+    let entity = entities[i];
     const option = document.createElement("option");
-    option.value = room.roomId;
-    option.textContent = room.name;
+    option.setAttribute("data-name", entity);
+    alert(option.ge);
+    option.textContent = entity.name;
     select.appendChild(option);
-
   }
+
+  //entities.forEach((element, key) => select.add(new Option(element, key);
+
+  //for (let i = 0; i < entities.length; i++) {
+  //  let entity = entities[i];
+  //  select.add(new Option(entity.name, entity.id));
+  //}
 
   form.appendChild(title);
   form.appendChild(select);
@@ -232,6 +235,7 @@ function fetchEntities(url) {
 function createFormEventListener() {
 
   form.addEventListener("submit", handleFormSubmit);
+  //alert(form.getAttribute("movie"));
 }
 
 async function handleFormSubmit(event) {
@@ -249,17 +253,27 @@ async function handleFormSubmit(event) {
 }
 
 
+
+
 async function postFormDataAsJson(url, formData) {
   const plainFormData = Object.fromEntries(formData.entries());
   const formDataJsonString = JSON.stringify(plainFormData);
+
+  const test = formDataJsonString.replace(/\\/g, "");
 
   const fetchOptions = {
     method: this.method,
     headers: {
       "Content-Type": "application/json",
     },
-    body: formDataJsonString
+    body: test
   };
+
+  //alert(fetchOptions.body);
+
+
+
+
 
   const response = await fetch(url, fetchOptions);
 

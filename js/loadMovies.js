@@ -1,15 +1,15 @@
 const divContainer = document.getElementById("movies");
 
-async function loadShows(){
-  const shows = await fetchShows("http://localhost:8080/api/shows");
-  for (let i = 0; i < shows.length; i++){
-    const show = shows[i];
+async function loadMovies(){
+  const movies = await fetchMovies("http://localhost:8080/api/movies");
+  for (let i = 0; i < movies.length; i++){
+    const movie = movies[i];
     const showContainer = document.createElement("img");
     showContainer.classList.add("Card");
-    showContainer.src = show.imageUrl;
+    showContainer.src = movie.imageUrl;
 
     showContainer.addEventListener('click',() => {
-      localStorage.setItem("show", JSON.stringify(show));
+      localStorage.setItem("show", JSON.stringify(movie));
       window.location.href = "show.html"
     })
     //title.href = "http://localhost:8080/api/shows/show/" + shows[i].showId;
@@ -19,9 +19,9 @@ async function loadShows(){
   }
 }
 
-function fetchShows(url){
+function fetchMovies(url){
   return fetch(url).then(response => response.json());
 
 }
 
-loadShows()
+loadMovies()

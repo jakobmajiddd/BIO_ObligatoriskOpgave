@@ -196,6 +196,7 @@ async function loadShows() {
     const showContainerElementDateFD = document.createElement("div");
     const showContainerElementDateSD = document.createElement("div");
 
+    //slet denne kommentar
     showContainerElementId.textContent = show.showId;
     showContainerElementTitle.textContent  = show.movieName;
     showContainerElementDateFD.textContent = show.finishDate;

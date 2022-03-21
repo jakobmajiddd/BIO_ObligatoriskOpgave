@@ -2,13 +2,32 @@ const overlay = document.querySelector("#overlay");
 
 document.querySelector(".close").addEventListener("click", closeModal);
 
-let modalTitle= document.querySelector(".modal-title");
+let modalTitle = document.querySelector(".modal-title");
 let modalInputField = document.querySelector(".modal-input-field");
 
 let form = document.querySelector(".modal-input-field");
 
 let method;
 const submitBtn = document.getElementById("submit");
+
+function createMovie() {
+  setMethod("post");
+  setTitle("Create Movie");
+  setFormDestination("http://localhost:8080/api/movies", "post");
+
+  createInput("Movie name", "Batman...", "movieName", "text");
+  createInput("Movie genre", "Action...", "genre", "text");
+  createInput("Age limit", "12...", "ageLimit", "number")
+  createInput("Image Url", "Url...", "imageUrl", "text");
+  createInput("Duration", "...", "duration", "text");
+
+  submitBtn.addEventListener("click", async () => {
+    await createFormEventListener();
+    location.reload();
+  });
+
+  openModal();
+}
 
 function createShow() {
   setMethod("post");
@@ -19,7 +38,7 @@ function createShow() {
   createInput("Age limit", "12...", "ageLimit", "number")
   createInput("Image Url", "Url...", "imageUrl", "text");
   createInput("Start date", "", "startDate", "date");
-  createInput("Finish date", "","finishDate", "date");
+  createInput("Finish date", "", "finishDate", "date");
   createInput("Duration", "...", "duration", "text");
 
   createDropdownInput("http://localhost:8080/api/rooms", "Room", "room");
@@ -39,14 +58,10 @@ function updateShow(show) {
   setMethod("put");
   setTitle("Edit show");
   setFormDestination("http://localhost:8080/api/shows/edit/" + show.showId, "put")
-  createInput("Movie name", "Batman...", "movieName", "text", show.movieName);
+  createDropdownInput("", "Batman...", "movieName", "text", show.movieName);
   createInput("Movie genre", "Action...", "genre", "text", show.genre);
   createInput("Age limit", "12...", "ageLimit", "number", show.ageLimit)
-  createInput("Image Url", "Url...", "imageUrl", "text", show.imageUrl);
-  createInput("Start date", "", "startDate", "date",  show.startDate);
-  createInput("Finish date", "","finishDate", "date", show.finishDate);
-  createInput("Duration", "...", "duration", "text", show.duration);
-  createDropdownInput("http://localhost:8080/api/rooms", "Room", "roomId");
+
 
   const modalFooter = document.querySelector(".modal-footer")
 
@@ -140,7 +155,6 @@ async function createDropdownInput(url, inputName, idName) {
   form.appendChild(select);
 
 }
-
 
 
 function openModal() {

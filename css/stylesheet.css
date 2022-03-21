@@ -15,10 +15,6 @@ body{
   background-color: var(--background);
 }
 
-html{
-  background-color: var(--background);
-}
-
 /*Global design stylings*/
 #movies{
   height: 100%;
@@ -150,17 +146,18 @@ li a:hover:not(.active) {
   display: block;
   height: 30px;
   width: 800px;
-  color: black;
-  border: 1px solid black;
+  color: var(--input-lable);
+  border: 1px solid white;
   cursor: pointer;
 }
 
 .show-container-element:hover {
-  background-color: whitesmoke;
+  background-color: white;
+  color: black;
 }
 
 .show-container-element-id {
-  border-right: 1px solid black;
+  border-right: 1px solid white;
   height: 30px;
   width: 30px;
   text-align: center;
@@ -169,7 +166,7 @@ li a:hover:not(.active) {
 }
 
 .show-container-element-title {
-  border-right: 1px solid black;
+  border-right: 1px solid white;
   overflow: hidden;
   float: left;
   font-size: 20px;

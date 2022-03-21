@@ -179,26 +179,26 @@ async function loadShows() {
 
     const showContainerElementId = document.createElement("div");
     const showContainerElementTitle = document.createElement("div");
-    const showContainerElementDateS = document.createElement("div");
-    const showContainerElementDateF = document.createElement("div");
+    const showContainerElementDateFD = document.createElement("div");
+    const showContainerElementDateSD = document.createElement("div");
 
     showContainerElementId.textContent = show.showId;
     showContainerElementTitle.textContent  = show.movieName;
-    showContainerElementDateS.textContent = show.startDate;
-    showContainerElementDateF.textContent = show.finishDate;
+    showContainerElementDateFD.textContent = show.finishDate;
+    showContainerElementDateSD.textContent = show.startDate;
 
     showContainerElement.classList.add("show-container-element");
     showContainerElementId.classList.add("show-container-element-id");
     showContainerElementTitle.classList.add("show-container-element-title");
-    showContainerElementDateS.classList.add("show-container-element-date");
-    showContainerElementDateF.classList.add("show-container-element-date");
+    showContainerElementDateFD.classList.add("show-container-element-date");
+    showContainerElementDateSD.classList.add("show-container-element-date");
 
     showContainerElement.addEventListener("click", () => updateShow(show));
 
     showContainerElement.appendChild(showContainerElementId);
     showContainerElement.appendChild(showContainerElementTitle);
-    showContainerElement.appendChild(showContainerElementDateS);
-    showContainerElement.appendChild(showContainerElementDateF);
+    showContainerElement.appendChild(showContainerElementDateFD);
+    showContainerElement.appendChild(showContainerElementDateSD);
 
     showContainer.appendChild(showContainerElement);
 

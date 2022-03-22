@@ -1,7 +1,12 @@
 const divContainer = document.getElementById("movies");
 
+
 async function loadMovies(){
-  const movies = await fetchMovies("http://localhost:8080/api/movies");
+
+  const movies = await fetch("http://localhost:8080/api/movies").then(response => response.json());
+
+  alert(movies.length);
+
   for (let i = 0; i < movies.length; i++){
     const movie = movies[i];
     const showContainer = document.createElement("img");
@@ -19,9 +24,5 @@ async function loadMovies(){
   }
 }
 
-function fetchMovies(url){
-  return fetch(url).then(response => response.json());
-
-}
 
 loadMovies()

@@ -60,7 +60,7 @@ function editMovie(movie) {
 
   displayShows(movie)
 
-  createDeleteButton();
+  createDeleteButton("http://localhost:8080/api/movies/" + movie.id);
   setupSubmitButton();
 
   openModal();
@@ -81,7 +81,7 @@ async function displayShows(movie) {
 
 }
 
-function createDeleteButton() {
+function createDeleteButton(url) {
   const modalFooter = document.querySelector(".modal-footer")
 
   deleteButton.id = "delete";
@@ -92,7 +92,7 @@ function createDeleteButton() {
 
   deleteButton.addEventListener("click",async () => {
 
-    await deleteShow(show.showId)
+    await deleteEntity(url);
     location.reload();
   });
 }
@@ -104,14 +104,13 @@ function setupSubmitButton() {
   });
 }
 
-function deleteShow(showId) {
+function deleteEntity(url) {
   const fetchOptions = {
     method: "delete",
     headers: {
       "Content-Type": "application/json",
     },
   };
-  const url = "http://localhost:8080/api/shows/delete/" + showId;
   return fetch(url, fetchOptions);
 }
 

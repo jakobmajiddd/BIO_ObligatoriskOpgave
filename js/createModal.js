@@ -8,9 +8,11 @@ let modalInputField = document.querySelector(".modal-input-field");
 let form = document.querySelector(".modal-input-field");
 
 let method;
-let test;
+let showForm = false;
 const submitBtn = document.getElementById("submit");
 const deleteButton = document.createElement("button");
+
+
 
 ////////////// Create modals /////////////////////
 
@@ -30,17 +32,19 @@ function createMovie() {
   openModal();
 }
 
-function createShow() {
-  setMethod("post");
-  setTitle("Create show");
-  setFormDestination("http://localhost:8080/api/shows", "post")
-  createDropdownInput("http://localhost:8080/api/movies", "Movie", "movie");
-  createDropdownInput("http://localhost:8080/api/rooms", "Room", "room");
-  createInput("Run time", "", "startDate", "time");
+async function createShow() {
+  await setMethod("post");
+  await setTitle("Create show");
+  await setFormDestination("http://localhost:8080/api/shows", "post")
+  await createInput("Run time", "", "startDate", "time");
+  await createDropdownInput("http://localhost:8080/api/rooms", "Room", "room");
+  await createDropdownInput("http://localhost:8080/api/movies", "Movie", "movie");
 
-  setupSubmitButton();
 
-  openModal();
+  await setupSubmitButton();
+  showForm = true;
+
+  await openModal();
 }
 
 function updateShow(show) {
@@ -136,23 +140,24 @@ async function createDropdownInput(url, inputName, idName) {
   select.id = idName;
   select.name = idName;
 
-  test = entities[0];
-
-  for (let i = 0; i < entities.length; i++) {
-    let entity = entities[i];
-    const option = document.createElement("option");
-    option.setAttribute("data-name", entity);
-    alert(option.ge);
-    option.textContent = entity.name;
-    select.appendChild(option);
-  }
+  //test = entities[0];
+//
+  //for (let i = 0; i < entities.length; i++) {
+  //  let entity = entities[i];
+  //  const option = document.createElement("option");
+  //  //option.value = entity.id;
+  //  option.setAttribute("data-value", entity.id);
+//
+  //  option.textContent = entity.name;
+  //  select.appendChild(option);
+  //}
 
   //entities.forEach((element, key) => select.add(new Option(element, key);
 
-  //for (let i = 0; i < entities.length; i++) {
-  //  let entity = entities[i];
-  //  select.add(new Option(entity.name, entity.id));
-  //}
+  for (let i = 0; i < entities.length; i++) {
+    let entity = entities[i];
+    select.add(new Option(entity.name, entity.id));
+  }
 
   form.appendChild(title);
   form.appendChild(select);
@@ -188,7 +193,7 @@ const showContainer = document.getElementById("show-container");
 loadShows();
 
 async function loadShows() {
-  const shows = await fetchEntities("http://localhost:8080/api/shows");
+  const shows = await fetchEntities("http://localhost:8080/api/movies");
 
   for (let i = 0; i < shows.length; i++) {
     let show = shows[i];
@@ -200,15 +205,13 @@ async function loadShows() {
     const showContainerElementDateSD = document.createElement("div");
 
     //slet denne kommentar
-    showContainerElementId.textContent = show.showId;
-    showContainerElementTitle.textContent  = show.movieName;
-    showContainerElementDateFD.textContent = show.finishDate;
+    showContainerElementId.textContent = show.id;
+    showContainerElementTitle.textContent  = show.name;
     showContainerElementDateSD.textContent = show.startDate;
 
     showContainerElement.classList.add("show-container-element");
     showContainerElementId.classList.add("show-container-element-id");
     showContainerElementTitle.classList.add("show-container-element-title");
-    showContainerElementDateFD.classList.add("show-container-element-date");
     showContainerElementDateSD.classList.add("show-container-element-date");
 
     showContainerElement.addEventListener("click", () => updateShow(show));
@@ -246,30 +249,39 @@ async function handleFormSubmit(event) {
 
   try {
     const formData = new FormData(formEvent);
+
     await postFormDataAsJson(url, formData);
   } catch (err) {
 
   }
 }
 
-
-
+// meget dårlig måde at fixe problemet på
+function parseHack(str) {
+  str = str.replace('"room":"', '"room":{"id":');
+  str = str.replace('","m', '},"m');
+  str = str.replace('"movie":"', '"movie":{"id":');
+  str = str.replace('"}', '}}');
+  return str;
+}
 
 async function postFormDataAsJson(url, formData) {
   const plainFormData = Object.fromEntries(formData.entries());
-  const formDataJsonString = JSON.stringify(plainFormData);
+  let formDataJsonString = JSON.stringify(plainFormData);
 
-  const test = formDataJsonString.replace(/\\/g, "");
+
+  if (showForm) {
+    formDataJsonString = parseHack(formDataJsonString);
+    showForm = false;
+  }
 
   const fetchOptions = {
     method: this.method,
     headers: {
       "Content-Type": "application/json",
     },
-    body: test
+    body: formDataJsonString
   };
-
-  //alert(fetchOptions.body);
 
 
 

@@ -47,18 +47,38 @@ async function createShow() {
   await openModal();
 }
 
-function updateShow(show) {
+function editMovie(movie) {
   setMethod("put");
-  setTitle("Edit show");
-  setFormDestination("http://localhost:8080/api/shows/edit/" + show.showId, "put")
-  createDropdownInput("", "Batman...", "movieName", "text", show.movieName);
-  createInput("Movie genre", "Action...", "genre", "text", show.genre);
-  createInput("Age limit", "12...", "ageLimit", "number", show.ageLimit)
+  setTitle("Edit movie");
+  setFormDestination("http://localhost:8080/api/movies/movie/" + movie.id, "put")
+
+  createInput("Movie name", "Batman...", "name", "text", movie.name);
+  createInput("Movie genre", "Action...", "genre", "text", movie.genre);
+  createInput("Age limit", "12...", "ageLimit", "number", movie.ageLimit)
+  createInput("Image Url", "Url...", "imageUrl", "text", movie.imageUrl);
+  createInput("Duration", "...", "duration", "number", movie.duration);
+
+  displayShows(movie)
 
   createDeleteButton();
   setupSubmitButton();
 
   openModal();
+}
+
+async function displayShows(movie) {
+  const shows = await fetchEntities("http://localhost:8080/api/shows/" + movie.id);
+  const header = document.createElement("p");
+  header.textContent = "Shows:";
+  header.style.fontWeight = "bold";
+  form.appendChild(header);
+  shows.forEach(s => {
+    const div = document.createElement("div");
+    div.textContent = s.startDate;
+    form.appendChild(div);
+  });
+
+
 }
 
 function createDeleteButton() {
@@ -214,7 +234,7 @@ async function loadShows() {
     showContainerElementTitle.classList.add("show-container-element-title");
     showContainerElementDateSD.classList.add("show-container-element-date");
 
-    showContainerElement.addEventListener("click", () => updateShow(show));
+    showContainerElement.addEventListener("click", () => editMovie(show));
 
     showContainerElement.appendChild(showContainerElementId);
     showContainerElement.appendChild(showContainerElementTitle);

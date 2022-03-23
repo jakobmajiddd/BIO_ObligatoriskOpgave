@@ -13,7 +13,6 @@ const submitBtn = document.getElementById("submit");
 const deleteButton = document.createElement("button");
 
 
-
 ////////////// Create modals /////////////////////
 
 function createMovie() {
@@ -26,6 +25,7 @@ function createMovie() {
   createInput("Age limit", "12...", "ageLimit", "number")
   createInput("Image Url", "Url...", "imageUrl", "text");
   createInput("Duration", "...", "duration", "number");
+  createInput("Price", "...", "price", "number");
 
   setupSubmitButton();
 
@@ -90,7 +90,7 @@ function createDeleteButton(url) {
 
   modalFooter.appendChild(deleteButton);
 
-  deleteButton.addEventListener("click",async () => {
+  deleteButton.addEventListener("click", async () => {
 
     await deleteEntity(url);
     location.reload();
@@ -225,7 +225,7 @@ async function loadShows() {
 
     //slet denne kommentar
     showContainerElementId.textContent = show.id;
-    showContainerElementTitle.textContent  = show.name;
+    showContainerElementTitle.textContent = show.name;
     showContainerElementDateSD.textContent = show.startDate;
 
     showContainerElement.classList.add("show-container-element");
@@ -301,9 +301,6 @@ async function postFormDataAsJson(url, formData) {
     },
     body: formDataJsonString
   };
-
-
-
 
 
   const response = await fetch(url, fetchOptions);

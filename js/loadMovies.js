@@ -5,8 +5,6 @@ async function loadMovies(){
 
   const movies = await fetch("http://localhost:8080/api/movies").then(response => response.json());
 
-  alert(movies.length);
-
   for (let i = 0; i < movies.length; i++){
     const movie = movies[i];
     const showContainer = document.createElement("img");

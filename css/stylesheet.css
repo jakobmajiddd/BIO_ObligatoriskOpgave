@@ -1,11 +1,12 @@
 :root{
-  --background: #00171F;
+  --background: #191919;
   --card_background: #00A7E1;
-  --nav_color: black;
-  --nav_hover: #007EA7;
-  --login_btn: white;
-  --login_btn_hover: black;
   --input-lable: white;
+  --nav_color: #191919;
+  --nav_hover: #007EA7;
+  --nav_btns: teal;
+  --login_btn: white;
+  --login_btn_hover: white;
 }
 
 /*Core css*/
@@ -45,7 +46,7 @@ ul {
 li a {
   font-size: 24px;
   float: right;
-  color: white;
+  color: var(--nav_btns);
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;

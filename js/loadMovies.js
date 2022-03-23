@@ -12,7 +12,7 @@ async function loadMovies(){
     showContainer.src = movie.imageUrl;
 
     showContainer.addEventListener('click',() => {
-      localStorage.setItem("show", JSON.stringify(movie));
+      localStorage.setItem("movie", JSON.stringify(movie));
       window.location.href = "show.html"
     })
     //title.href = "http://localhost:8080/api/shows/show/" + shows[i].showId;

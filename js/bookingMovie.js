@@ -13,11 +13,11 @@ function setMovieData(movieIndex, moviePrice) {
   localStorage.setItem('selectedMoviePrice', moviePrice);
 }
 
-function fetchEntities (url){
+function fetchEntities(url) {
   return fetch(url).then(response => response.json());
 }
 
-async function fillDropdown (){
+async function fillDropdown() {
   const shows = await fetchEntities('http://localhost:8080/api/shows/' + movie.id);
   const dropdown = document.getElementById('movie');
 
@@ -49,7 +49,7 @@ function populateUI() {
 
   if (selectedSeats !== null && selectedSeats.length > 0) {
     seats.forEach((seat, index) => {
-      if (selectedSeats.indexOf(index) > -1){
+      if (selectedSeats.indexOf(index) > -1) {
         seat.classList.add('selected');
       }
     });
@@ -65,8 +65,8 @@ function populateUI() {
 //movie select event, denne funktion gør at den regner ny pris når man skifter film, og ikke sidder fast på første pris
 movieSelect.addEventListener('change', event => {
 
-  setMovieData(event.target.selectedIndex, event.target.value);
-  updateSelectedCount(); //her går vi igen igennem alle de selected seats der er valgt, og regner prisen ud
+    setMovieData(event.target.selectedIndex, event.target.value);
+    updateSelectedCount(); //her går vi igen igennem alle de selected seats der er valgt, og regner prisen ud
   }
 )
 
@@ -82,6 +82,7 @@ container.addEventListener('click', (event) => {
 updateSelectedCount();
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 const submitBtn = document.getElementById("submit");
+let form = document.getElementById("myForm");
 submitBtn.addEventListener("click", async () => {
   await createFormEventListener();
   location.reload();
@@ -110,16 +111,17 @@ async function handleFormSubmit(event) {
 }
 
 
-
 async function postFormDataAsJson(url, formData) {
   const plainFormData = Object.fromEntries(formData.entries());
   let formDataJsonString = JSON.stringify(plainFormData);
+  alert(formDataJsonString);
 
-
-  if (showForm) {
+/*  if (showForm) {
     formDataJsonString = parseHack(formDataJsonString);
     showForm = false;
   }
+
+ */
 
   const fetchOptions = {
     method: "post",

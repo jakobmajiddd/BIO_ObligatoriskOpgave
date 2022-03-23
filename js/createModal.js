@@ -301,7 +301,7 @@ async function postFormDataAsJson(url, formData) {
     },
     body: formDataJsonString
   };
-
+  alert(formDataJsonString);
 
   const response = await fetch(url, fetchOptions);
 

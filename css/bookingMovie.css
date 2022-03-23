@@ -30,6 +30,7 @@
 
 .movie-container {
   margin: 20px 0;
+  color: white;
 }
 
 .movie-container select {
@@ -102,11 +103,12 @@ margin-left: 18px; /*efter nr to, ryk 18px til venstre*/
 .container-seat {
   perspective: 1000px;
   margin-bottom: 30px;
-  
+
 }
 
 p.text {
   margin: 5px 0;
+  color: white;
 }
 
 p.text span {

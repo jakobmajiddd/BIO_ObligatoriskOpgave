@@ -4,7 +4,6 @@ const count = document.getElementById('count');
 const total = document.getElementById('total');
 const movieSelect = document.getElementById('movie');
 const movie = JSON.parse(localStorage.getItem('movie'));
-alert(movie.name);
 populateUI();
 let ticketPrice = movie.price; //+ gør det til et number i stedet for string, value henter value fra option i html
 
@@ -13,6 +12,19 @@ function setMovieData(movieIndex, moviePrice) {
   localStorage.setItem('selectedMovieIndex', movieIndex);
   localStorage.setItem('selectedMoviePrice', moviePrice);
 }
+
+function fetchEntities (url){
+  return fetch(url).then(response => response.json());
+}
+
+async function fillDropdown (){
+  const shows = await fetchEntities('http://localhost:8080/api/shows/' + movie.id);
+  const dropdown = document.getElementById('movie');
+
+  shows.forEach(show => dropdown.appendChild(new Option(show.startDate, show.id)));
+}
+
+fillDropdown();
 
 //update totalt price and count
 function updateSelectedCount() {
@@ -24,7 +36,7 @@ function updateSelectedCount() {
 
 //local storage så selvom man refresher gemmer browseren det man har trykket på
   localStorage.setItem('selectedSeats', JSON.stringify(seatsIndex)); //da seatsIndex er et array skal vi bruge json.stringify
-  alert(localStorage.getItem('selectedSeats'));
+
   const selectedSeatsCount = selectedSeats.length; //et tal på hvor mange selected seats der er trykket på
 
   count.innerText = selectedSeatsCount;
@@ -52,8 +64,7 @@ function populateUI() {
 
 //movie select event, denne funktion gør at den regner ny pris når man skifter film, og ikke sidder fast på første pris
 movieSelect.addEventListener('change', event => {
-  ticketPrice = +event.target.value; //+ gør det til et number i stedet for string
-  alert(event.target.selectedIndex);
+
   setMovieData(event.target.selectedIndex, event.target.value);
   updateSelectedCount(); //her går vi igen igennem alle de selected seats der er valgt, og regner prisen ud
   }
@@ -69,6 +80,67 @@ container.addEventListener('click', (event) => {
 });
 
 updateSelectedCount();
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+const submitBtn = document.getElementById("submit");
+submitBtn.addEventListener("click", async () => {
+  await createFormEventListener();
+  location.reload();
+});
+
+
+function createFormEventListener() {
+
+  form.addEventListener("submit", handleFormSubmit);
+  //alert(form.getAttribute("movie"));
+}
+
+async function handleFormSubmit(event) {
+  event.preventDefault();
+
+  const formEvent = event.currentTarget;
+  const url = formEvent.action;
+
+  try {
+    const formData = new FormData(formEvent);
+
+    await postFormDataAsJson(url, formData);
+  } catch (err) {
+
+  }
+}
+
+
+
+async function postFormDataAsJson(url, formData) {
+  const plainFormData = Object.fromEntries(formData.entries());
+  let formDataJsonString = JSON.stringify(plainFormData);
+
+
+  if (showForm) {
+    formDataJsonString = parseHack(formDataJsonString);
+    showForm = false;
+  }
+
+  const fetchOptions = {
+    method: "post",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: formDataJsonString
+  };
+
+
+  const response = await fetch(url, fetchOptions);
+
+  if (!response) {
+    const errorMessage = await response.text();
+    throw new Error(errorMessage);
+  }
+
+  return response.json();
+}
+
+
 
 
 

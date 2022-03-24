@@ -16,7 +16,9 @@ document.addEventListener("DOMContentLoaded", createFormEventListener);
 
 function createFormEventListener() {
   let form = document.getElementById("loginForm");
+  alert(form);
   form.addEventListener("submit", handleFormSubmit);
+
 }
 
 async function handleFormSubmit(event) {

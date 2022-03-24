@@ -81,6 +81,25 @@ container.addEventListener('click', (event) => {
 
 updateSelectedCount();
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/*
+{
+  "seat": {
+  "id": 1
+},
+  "booking": {
+  "customer": {
+    "name": "Baatman",
+      "email": "feww@gmail.com"
+  },
+  "show": {
+    "id": 1
+  }
+}
+}
+ */
+
+
 const submitBtn = document.getElementById("submit");
 let form = document.getElementById("myForm");
 submitBtn.addEventListener("click", async () => {
@@ -103,42 +122,60 @@ async function handleFormSubmit(event) {
 
   try {
     const formData = new FormData(formEvent);
-
     await postFormDataAsJson(url, formData);
   } catch (err) {
 
   }
 }
 
-
 async function postFormDataAsJson(url, formData) {
+  const seats = JSON.parse( localStorage.getItem("selectedSeats"));
+  alert(seats.length);
+  const showId = document.getElementById("movie").value;
+  alert(showId);
   const plainFormData = Object.fromEntries(formData.entries());
-  let formDataJsonString = JSON.stringify(plainFormData);
-  alert(formDataJsonString);
+  for (let i = 0; i < seats.length; i++) {
 
-/*  if (showForm) {
-    formDataJsonString = parseHack(formDataJsonString);
-    showForm = false;
+
+    const reservedSeat = {};
+    reservedSeat.seat = {};
+    reservedSeat.seat.id = seats[i]; //localstorage
+    reservedSeat.booking = {};
+    reservedSeat.booking.customer = {};
+    reservedSeat.booking.customer.name = plainFormData.name;
+    reservedSeat.booking.customer.email = plainFormData.email;
+
+    reservedSeat.booking.show = {};
+    reservedSeat.booking.show.id = showId;
+
+    let formDataJsonString = JSON.stringify(reservedSeat);
+
+    //let formDataJsonString = JSON.stringify(plainFormData);
+    alert(formDataJsonString);
+
+    /*  if (showForm) {
+        formDataJsonString = parseHack(formDataJsonString);
+        showForm = false;
+      }
+
+     */
+
+    const fetchOptions = {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: formDataJsonString
+    };
+
+
+    const response = await fetch(url, fetchOptions);
+
+    if (!response) {
+      const errorMessage = await response.text();
+      throw new Error(errorMessage);
+    }
   }
-
- */
-
-  const fetchOptions = {
-    method: "post",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: formDataJsonString
-  };
-
-
-  const response = await fetch(url, fetchOptions);
-
-  if (!response) {
-    const errorMessage = await response.text();
-    throw new Error(errorMessage);
-  }
-
   return response.json();
 }
 

@@ -245,7 +245,41 @@ async function loadShows() {
   }
 
 }
+/*
+const bookingContainer = document.getElementById("booking-container");
+async function loadBookings(){
+  const bookings = await fetchEntities("http://localhost:8080/api/bookings");
 
+  for (let i = 0; i < bookings.length; i++) {
+    let booking = bookings[i];
+    const showContainerElement = document.createElement("a");
+
+    const showContainerElementId = document.createElement("div");
+    //const showContainerElementTitle = document.createElement("div");
+    //const showContainerElementDateFD = document.createElement("div");
+    //const showContainerElementDateSD = document.createElement("div");
+
+    //slet denne kommentar
+    showContainerElementId.textContent = booking.id;
+    //showContainerElementTitle.textContent = booking.name;
+    //showContainerElementDateSD.textContent = booking.startDate;
+
+    showContainerElement.classList.add("show-container-element");
+    showContainerElementId.classList.add("show-container-element-id");
+    //showContainerElementTitle.classList.add("show-container-element-title");
+    //showContainerElementDateSD.classList.add("show-container-element-date");
+
+    //showContainerElement.addEventListener("click", () => editMovie(booking));
+
+    showContainerElement.appendChild(showContainerElementId);
+    //showContainerElement.appendChild(showContainerElementTitle);
+    //showContainerElement.appendChild(showContainerElementDateFD);
+    //showContainerElement.appendChild(showContainerElementDateSD);
+
+    showContainer.appendChild(showContainerElement);
+  }
+}
+*/
 
 function fetchEntities(url) {
   return fetch(url).then(response => response.json());
@@ -301,7 +335,6 @@ async function postFormDataAsJson(url, formData) {
     },
     body: formDataJsonString
   };
-  alert(formDataJsonString);
 
   const response = await fetch(url, fetchOptions);
 

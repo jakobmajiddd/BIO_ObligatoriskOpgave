@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="css/stylesheet.css">
   <script src="js/bookingMovie.js" defer></script>
   <link rel="stylesheet" href="css/bookingMovie.css">
+  <script src="js/loadMovies.js" defer></script>
 </head>
 <body>
 <!--slet denne kommentar-->
@@ -16,6 +17,7 @@
     <li class="logo"><a href="index.html"><img src="img/logo.jpg" width="40" height="40"/></a></li>
   </ul>
 </div>
+<h1 id="title"></h1>
 <div class="container">
   <div class="booking">
 <div class="movie-container">
@@ -106,7 +108,7 @@
   Du har valgt <span id="count">0</span> sæder til en samlet pris af <span id="total">0</span> kr.
 </p>
   </div>
-  <form class="form-booking" action="http://localhost:8080/api/bookings" method="post" id="myForm">
+  <form class="form-booking" action="http://localhost:8080/api/reserved-seat/reserve" method="post" id="myForm">
     <p>Name</p>
     <input class="input-booking" name="name" id="name" type="text" placeholder="...">
     <p>Email</p>

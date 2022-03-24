@@ -2,14 +2,11 @@
 *{
   margin: 0;
   padding: 0;
-  font-family: 'Montserrat', sans-serif;
+
   box-sizing: border-box;
 
 }
-html{
-  scroll-behavior: smooth;
-}
-body{
+.body1{
   background-image: linear-gradient( rgba(0,0,0,0.9),rgba(0,0,0,0.9)),url('images/hero page/7.jpg');
   background-position: center;
   background-size: cover;

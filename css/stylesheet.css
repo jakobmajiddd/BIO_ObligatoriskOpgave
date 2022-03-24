@@ -6,8 +6,9 @@
   --nav_color: #191919;
   --nav_hover: white;
   --nav_btns: teal;
+  --login_form_outline: teal;
   --login_btn: white;
-  --login_btn_hover: white;
+  --login_btn_hover: #00A7E1;
 }
 
 /*Core css*/
@@ -45,6 +46,7 @@ ul {
 }
 
 li a {
+  margin-top: 10px;
   font-size: 24px;
   float: right;
   color: var(--nav_btns);
@@ -54,6 +56,7 @@ li a {
   display: block;
   border: none;
   cursor: pointer;
+  font-weight: bolder;
 }
 
 li a:hover:not(.active) {
@@ -65,17 +68,32 @@ li a:hover:not(.active) {
   float: left;
 }
 
+.mainBtn{
+  background-color: teal;
+  color: white;
+  padding: 8px 15px;
+  margin-top: 14px;
+  margin-bottom: 20px;
+  margin-right: 20px;
+  border-radius: 50px;
+}
+
+.mainBtn:hover{
+  background-color: #00A7E1;
+}
+
+
 /*Login page*/
 .login{
+  background-color: teal;
+  color: white;
   margin-top: 10px;
-  color: var(--login_btn);
   font-size: 30px;
   width: 20%;
   height: 30%;
-  background-color: transparent;
-  border: solid white 2px;
   border-radius: 15px;
   margin-bottom: 2%;
+  border: none;
 }
 
 .login:hover{
@@ -84,12 +102,12 @@ li a:hover:not(.active) {
 }
 
 .input-login{
-  width: 100%;
+  width: 400px;
   padding: 12px 20px;
 }
 
 .loginform{
-  border: solid white 2px;
+  border: solid var(--login_form_outline) 2px;
   border-radius: 15px;
   margin-top: 10%;
   color: var(--input-lable);
@@ -114,6 +132,11 @@ li a:hover:not(.active) {
 .booking{
   margin: auto;
   width: 40%;
+}
+
+.title{
+  text-align: center;
+  color: white;
 }
 
 /*Frontpage cards*/
@@ -149,17 +172,17 @@ li a:hover:not(.active) {
   height: 30px;
   width: 800px;
   color: var(--input-lable);
-  border: 1px solid white;
+  border: 1px solid teal;
   cursor: pointer;
 }
 
 .show-container-element:hover {
-  background-color: white;
+  background-color: teal;
   color: black;
 }
 
 .show-container-element-id {
-  border-right: 1px solid white;
+  border-right: 1px solid teal;
   height: 30px;
   width: 30px;
   text-align: center;
@@ -168,7 +191,7 @@ li a:hover:not(.active) {
 }
 
 .show-container-element-title {
-  border-right: 1px solid white;
+  border-right: 1px solid teal;
   overflow: hidden;
   float: left;
   font-size: 20px;
@@ -201,9 +224,7 @@ li a:hover:not(.active) {
   z-index: 1;
   background-color: rgba(0,0,0,0.5);
 }
-.nav-li{
-  font-weight: bolder;
-}
+
 
 
 

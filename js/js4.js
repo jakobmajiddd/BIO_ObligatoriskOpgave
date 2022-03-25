@@ -2,8 +2,6 @@ let form = document.getElementById("myForm");
 const submitBtn = document.getElementById("submit");
 submitBtn.addEventListener("click", createFormEventListener);
 
-//
-
 function createFormEventListener() {
 
   form.addEventListener("submit", handleFormSubmit);
@@ -22,7 +20,6 @@ async function handleFormSubmit(event) {
 
   }
 }
-
 
 async function postFormDataAsJson(url, formData) {
   const plainFormData = Object.fromEntries(formData.entries());

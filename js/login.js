@@ -52,7 +52,7 @@ async function postFormDataAsJson(url, formData) {
     throw new Error(errorMessage);
   }
 
-  if (response.status != "404") {
+  if (response.ok) {
     sessionStorage.setItem("admin", true);
     window.location.href = "adminPage.html";
   } else {

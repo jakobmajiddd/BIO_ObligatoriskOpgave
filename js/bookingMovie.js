@@ -80,24 +80,14 @@ container.addEventListener('click', (event) => {
 });
 
 updateSelectedCount();
-////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-/*
-{
-  "seat": {
-  "id": 1
-},
-  "booking": {
-  "customer": {
-    "name": "Baatman",
-      "email": "feww@gmail.com"
-  },
-  "show": {
-    "id": 1
-  }
+function setTitle() {
+  const showMovie = document.getElementById("title");
+  showMovie.classList.add("title");
+  showMovie.innerText = movie.name;
 }
-}
- */
+
+setTitle();
 
 
 const submitBtn = document.getElementById("submit");

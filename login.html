@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <title>Login</title>
   <link rel="stylesheet" href="css/stylesheet.css">
-  <script src="js/js1.js" defer></script>
+  <script src="js/login.js" defer></script>
 
 </head>
 <body>
@@ -16,7 +16,6 @@
   </ul>
 </div>
 <div class="wrapper">
-
   <form class="form-style; loginform"   action="http://localhost:8080/api/users/verify" method="post" id="loginForm">
     <br>
     <label for="username">Username</label><br>
@@ -25,22 +24,7 @@
     <input class="input-login" type="password" id="password" name="password" placeholder="Password" value="123" required><br>
 
     <button type="submit" id="submit" class="login">Login</button>
-
-<!-- <form class="form-style" id="login" name="login">
-     <label>Username</label><br>
-     <input type="text" id="username" name="username" placeholder="Username"><br>
-     <label>Password</label><br>
-     <input type="password" id="password" name="password" placeholder="Password" ><br>
-
-   <input type="button" onclick="check(this.form)" value="Login" id="pbLogin" class="login"></input>
-   <input type="reset" value="Cancel"/>
--->
-
   </form>
-
-  <!-- <button type="button" id="set">set</button>
-  <button type="button" id="test">test</button> -->
-
 </div>
 
 </body>

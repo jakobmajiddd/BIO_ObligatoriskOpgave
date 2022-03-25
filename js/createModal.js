@@ -32,19 +32,18 @@ function createMovie() {
   openModal();
 }
 
-async function createShow() {
-  await setMethod("post");
-  await setTitle("Create show");
-  await setFormDestination("http://localhost:8080/api/shows", "post")
-  await createInput("Run time", "", "startDate", "time");
-  await createDropdownInput("http://localhost:8080/api/rooms", "Room", "room");
-  await createDropdownInput("http://localhost:8080/api/movies", "Movie", "movie");
+function createShow() {
+  setMethod("post");
+  setTitle("Create show");
+  setFormDestination("http://localhost:8080/api/shows", "post")
+  createInput("Run time", "", "startDate", "time");
+  createDropdownInput("http://localhost:8080/api/rooms", "Room", "room");
+  createDropdownInput("http://localhost:8080/api/movies", "Movie", "movie");
 
+  setupSubmitButton();
 
-  await setupSubmitButton();
   showForm = true;
-
-  await openModal();
+  openModal();
 }
 
 function editMovie(movie) {
@@ -78,53 +77,7 @@ function editBooking(booking) {
 
 }
 
-async function displayShows(movie) {
-  const shows = await fetchEntities("http://localhost:8080/api/shows/" + movie.id);
-  const header = document.createElement("p");
-  header.textContent = "Shows:";
-  header.style.fontWeight = "bold";
-  form.appendChild(header);
-  shows.forEach(s => {
-    const div = document.createElement("div");
-    div.textContent = s.startDate;
-    form.appendChild(div);
-  });
 
-
-}
-
-function createDeleteButton(url) {
-  const modalFooter = document.querySelector(".modal-footer")
-
-  deleteButton.id = "delete";
-  deleteButton.className = "btn btn-danger remove";
-  deleteButton.textContent = "Delete";
-
-  modalFooter.appendChild(deleteButton);
-
-  deleteButton.addEventListener("click", async () => {
-
-    await deleteEntity(url);
-    location.reload();
-  });
-}
-
-function setupSubmitButton() {
-  submitBtn.addEventListener("click", async () => {
-    await createFormEventListener();
-    location.reload();
-  });
-}
-
-function deleteEntity(url) {
-  const fetchOptions = {
-    method: "delete",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
-  return fetch(url, fetchOptions);
-}
 
 //////////////// Modal build functions ///////////////
 
@@ -201,6 +154,52 @@ function clearModal() {
   while (modalInputField.hasChildNodes()) {
     modalInputField.removeChild(modalInputField.firstChild);
   }
+}
+
+async function displayShows(movie) {
+  const shows = await fetchEntities("http://localhost:8080/api/shows/" + movie.id);
+  const header = document.createElement("p");
+  header.textContent = "Shows:";
+  header.style.fontWeight = "bold";
+  form.appendChild(header);
+  shows.forEach(s => {
+    const div = document.createElement("div");
+    div.textContent = s.startDate;
+    form.appendChild(div);
+  });
+}
+
+function createDeleteButton(url) {
+  const modalFooter = document.querySelector(".modal-footer")
+
+  deleteButton.id = "delete";
+  deleteButton.className = "btn btn-danger remove";
+  deleteButton.textContent = "Delete";
+
+  modalFooter.appendChild(deleteButton);
+
+  deleteButton.addEventListener("click", async () => {
+
+    await deleteEntity(url);
+    await location.reload();
+  });
+}
+
+function setupSubmitButton() {
+  submitBtn.addEventListener("click", async () => {
+    await createFormEventListener();
+    await location.reload();
+  });
+}
+
+function deleteEntity(url) {
+  const fetchOptions = {
+    method: "delete",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  return fetch(url, fetchOptions);
 }
 
 //////////////////////////////////////////////////////////////////
@@ -293,25 +292,29 @@ async function handleFormSubmit(event) {
   }
 }
 
-// meget dårlig måde at fixe problemet på
-function parseHack(str) {
-  str = str.replace('"room":"', '"room":{"id":');
-  str = str.replace('","m', '},"m');
-  str = str.replace('"movie":"', '"movie":{"id":');
-  str = str.replace('"}', '}}');
-  return str;
-}
-
 async function postFormDataAsJson(url, formData) {
   const plainFormData = Object.fromEntries(formData.entries());
-  let formDataJsonString = JSON.stringify(plainFormData);
-
+  let formDataJsonString;
 
   if (showForm) {
-    formDataJsonString = parseHack(formDataJsonString);
-    showForm = false;
-  }
+    const time = plainFormData.startDate;
+    const movieId  = document.getElementById("movie").value;
+    const roomId = document.getElementById("room").value;
 
+    const show = {};
+    show.startDate = time;
+    show.room = {};
+    show.room.id = roomId;
+
+    show.movie = {};
+    show.movie.id = movieId;
+
+    formDataJsonString = JSON.stringify(show);
+
+    showForm = false;
+  } else {
+    formDataJsonString = JSON.stringify(plainFormData);
+  }
 
   const fetchOptions = {
     method: this.method,
@@ -330,6 +333,3 @@ async function postFormDataAsJson(url, formData) {
 
   return response.json();
 }
-
-
-

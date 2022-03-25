@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,500;1,600;1,700;1,800;1,900&display=swap');
-:root{
+
+:root {
   --background: #191919;
   --card_background: #00A7E1;
   --input-lable: white;
@@ -12,28 +13,29 @@
 }
 
 /*Core css*/
-body{
+body {
   margin: 0;
   font-family: Calibri;
   background-color: var(--background);
 }
 
 /*Global design stylings*/
-#movies{
+#movies {
   height: 100%;
   margin: auto;
 }
 
-.wrapper{
+.wrapper {
   width: 40%;
   margin: auto;
   padding: 10px;
   text-align: center;
 }
 
-.container{
+.container {
   margin: auto;
   width: 75%;
+  text-align: center;
 }
 
 /*Nav bar*/
@@ -64,12 +66,13 @@ li a:hover:not(.active) {
   text-decoration: none;
 }
 
-.logo{
+.logo {
   float: left;
 }
 
-.mainBtn{
+.mainBtn {
   background-color: teal;
+  font-size: 15px;
   color: white;
   padding: 8px 15px;
   margin-top: 14px;
@@ -78,13 +81,13 @@ li a:hover:not(.active) {
   border-radius: 50px;
 }
 
-.mainBtn:hover{
+.mainBtn:hover {
   background-color: #00A7E1;
 }
 
 
 /*Login page*/
-.login{
+.login {
   background-color: teal;
   color: white;
   margin-top: 10px;
@@ -96,51 +99,57 @@ li a:hover:not(.active) {
   border: none;
 }
 
-.login:hover{
+.login:hover {
   background-color: var(--login_btn_hover);
   cursor: pointer;
 }
 
-.input-login{
+.input-login {
   width: 400px;
   padding: 12px 20px;
 }
 
-.loginform{
+.loginform {
   border: solid var(--login_form_outline) 2px;
   border-radius: 15px;
   margin-top: 10%;
   color: var(--input-lable);
 }
 
-.loginlable{
+.loginlable {
   margin-top: 2%
 }
 
 /*Booking page*/
-.form-booking{
-  width: 600px;
-  border: 1px solid black;
-  display: flex;
+.form-booking {
+  display: inline-block;
   justify-content: space-between;
+  text-align: center;
+  width: 100%;
+
 }
 
-.input-booking{
+.input-booking {
   width: 31%;
 }
 
-.booking{
-  margin: auto;
-  width: 40%;
+.input-booking-p {
+  color: white;
 }
 
-.title{
+
+.booking {
+  margin: auto;
+  width: 30%;
+}
+
+.title {
   text-align: center;
   color: white;
 }
 
 /*Frontpage cards*/
-.Card{
+.Card {
   float: left;
   height: 350px;
   width: 25%;
@@ -228,9 +237,11 @@ li a:hover:not(.active) {
   left: 0;
   right: 0;
   z-index: 1;
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
-
+small {
+  color: white;
+}
 
 

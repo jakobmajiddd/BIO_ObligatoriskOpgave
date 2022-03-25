@@ -4,17 +4,6 @@
   box-sizing: border-box;
 }
 
-/*body {
-  background-color: #242333;
-  display: flex;
-  flex-direction: column;
-  color: white;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  font-family: 'Lato', 'sans-serif';
-}*/
-
 .seat {
   background-color: #444451;
   height: 12px;
@@ -26,6 +15,7 @@
 
 .row {
   display: flex;
+  justify-content: center;
 }
 
 .movie-container {
@@ -63,7 +53,7 @@ margin-left: 18px; /*efter nr to, ryk 18px til venstre*/
 
 .seat:not(.occupied):hover {
   cursor: pointer; /*så cursor ikke peger på sædet*/
-  transorm: scale(1.2);
+  transform: scale(1.2);
 }
 
 .showcase .seat:not(.occupied):hover {
@@ -98,12 +88,12 @@ margin-left: 18px; /*efter nr to, ryk 18px til venstre*/
   margin: 15px 0;
   transform: rotateX(-45deg);
   box-shadow: 0 3px 10px rgba(255, 255, 255, 0.75);
+
 }
 
 .container-seat {
   perspective: 1000px;
   margin-bottom: 30px;
-
 }
 
 p.text {

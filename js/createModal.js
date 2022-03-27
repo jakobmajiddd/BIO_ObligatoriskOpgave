@@ -56,6 +56,7 @@ function editMovie(movie) {
   createInput("Age limit", "12...", "ageLimit", "number", movie.ageLimit)
   createInput("Image Url", "Url...", "imageUrl", "text", movie.imageUrl);
   createInput("Duration", "...", "duration", "number", movie.duration);
+  createInput("Price", "...", "price", "number", movie.price);
 
   displayShows(movie)
 
@@ -74,10 +75,7 @@ function editBooking(booking) {
   setupSubmitButton();
 
   openModal();
-
 }
-
-
 
 //////////////// Modal build functions ///////////////
 

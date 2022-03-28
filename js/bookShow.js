@@ -4,8 +4,9 @@ const count = document.getElementById('count');
 const total = document.getElementById('total');
 const movieSelect = document.getElementById('movie');
 const movie = JSON.parse(localStorage.getItem('movie'));
+let ticketPrice = movie.price;
+
 populateUI();
-let ticketPrice = movie.price; //+ gør det til et number i stedet for string, value henter value fra option i html
 
 //save selected movie index and the price
 function setMovieData(movieIndex, moviePrice) {
@@ -18,7 +19,7 @@ function fetchEntities(url) {
 }
 
 async function fillDropdown() {
-  const shows = await fetchEntities('http://localhost:8080/api/shows/' + movie.id);
+  const shows = await fetchEntities('http://localhost:8080/api/shows/movie/' + movie.id);
   const dropdown = document.getElementById('movie');
 
   shows.forEach(show => dropdown.appendChild(new Option(show.startDate, show.id)));
@@ -126,7 +127,7 @@ async function postFormDataAsJson(url, formData) {
   const reservedSeat = {};
 
   reservedSeat.seat = {};
-  reservedSeat.seat.id = seats[0]+1; //localstorage
+  reservedSeat.seat.id = seats[0]+1;
 
   reservedSeat.booking = {};
   reservedSeat.booking.customer = {};

@@ -49,7 +49,7 @@ function createShow() {
 function editMovie(movie) {
   setMethod("put");
   setTitle("Edit movie");
-  setFormDestination("http://localhost:8080/api/movies/movie/" + movie.id, "put")
+  setFormDestination("http://localhost:8080/api/movies/" + movie.id, "put")
 
   createInput("Movie name", "Batman...", "name", "text", movie.name);
   createInput("Movie genre", "Action...", "genre", "text", movie.genre);
@@ -67,9 +67,9 @@ function editMovie(movie) {
 }
 
 function editBooking(booking) {
-  setMethod("delete");
+  setMethod("put");
   setTitle("Edit booking");
-  setFormDestination("http://localhost:8080/api/bookings/" + booking.id, "delete")
+  setFormDestination("http://localhost:8080/api/bookings/" + booking.id, "put")
 
   createDeleteButton("http://localhost:8080/api/bookings/" + booking.id);
   setupSubmitButton();
@@ -146,7 +146,6 @@ function clearModal() {
   modalTitle.textContent = "";
   deleteButton.remove();
 
-
   form.reset();
 
   while (modalInputField.hasChildNodes()) {
@@ -155,7 +154,7 @@ function clearModal() {
 }
 
 async function displayShows(movie) {
-  const shows = await fetchEntities("http://localhost:8080/api/shows/" + movie.id);
+  const shows = await fetchEntities("http://localhost:8080/api/shows/movie/" + movie.id);
   const header = document.createElement("p");
   header.textContent = "Shows:";
   header.style.fontWeight = "bold";
